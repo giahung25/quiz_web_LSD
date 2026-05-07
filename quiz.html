@@ -781,6 +781,25 @@
             document.getElementById('submit-btn').style.display = 'none';
             document.getElementById('header-stats').innerHTML = `<span style="color:var(--success); font-weight:bold;">Chế độ Xem lại</span>`;
         }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Only trigger if we are in the quiz screen (not setup, not result)
+            if (document.getElementById('quiz-screen').style.display !== 'flex') return;
+
+            const key = e.key.toLowerCase();
+            if (key === 'n') {
+                nextQuestion();
+            } else if (key === 'm') {
+                prevQuestion();
+            } else if (['1', '2', '3', '4', '5', '6'].includes(key)) {
+                const index = parseInt(key) - 1;
+                const q = questions[currentIdx];
+                if (q && q.options && index < q.options.length) {
+                    selectOption(q.options[index]);
+                }
+            }
+        });
     </script>
 </body>
 </html>
